@@ -279,8 +279,16 @@ mtlLoader.load('/assets/models/c4/c4.mtl', function(materials) {
 
 let inputCode = []
 
+
+
 function newNumber(number) {
-    inputCode.push(createTextMesh(String(number),10,0xffffff, scene))
+    if (inputCode.length < 5) { 
+        let newPos = new THREE.Vector3
+        newPos.x = -1.6+inputCode.length*0.5
+        newPos.y = 9.4
+        newPos.z = -11.5 
+        inputCode.push(createTextMesh(String(number),10,0x808080, newPos, scene))
+    }
 }
 
 function deleteNumber() {
@@ -300,10 +308,10 @@ const raycaster = new THREE.Raycaster()
 const mouse = new THREE.Vector2()
 
 class Cube extends THREE.Mesh {
-    constructor(number) {
+    constructor(number, color) {
       super()
       this.geometry = new THREE.BoxGeometry()
-      this.material = new THREE.MeshLambertMaterial({ color: 0xff0000, opacity:0, transparent:true })
+      this.material = new THREE.MeshLambertMaterial({ color: color, opacity:0, transparent:true })
       this.cubeSize = 0
       
       this.number = number
@@ -328,18 +336,27 @@ class Cube extends THREE.Mesh {
     }
   }
 
-
+const blocker = new THREE.Mesh
+blocker.geometry = new THREE.BoxGeometry()
+blocker.material = new THREE.MeshLambertMaterial({ color: 0x00FF00 })
+blocker.position.x = -0.5
+blocker.position.y = 9.6
+blocker.position.z = -11.7
+blocker.scale.x = 2.5
+blocker.scale.y = 0.77
+blocker.scale.z = 0.2
+scene.add(blocker)
 
 for ( let i = 0; i < 3; i ++ ) {
     for ( let j = 0; j < 3; j ++ ) {
-        const object = new Cube(7-(3*j)+i);
+        const object = new Cube(7-(3*j)+i, 0xff0000);
 
-        object.position.x = i*0.8-1.1;
-        object.position.y = 6.2+j*0.8;
+        object.position.x = i*0.75-1.05;
+        object.position.y = 6.1+j*0.82;
         object.position.z = -11.7;
 
-        object.scale.x = 0.5;
-        object.scale.y = 0.5;
+        object.scale.x = 0.56;
+        object.scale.y = 0.56;
         object.scale.z = 0.6;
 
         scene.add( object );

@@ -3,7 +3,7 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 
 
 
-export function createTextMesh(message, textSize, textColor, scene) {
+export function createTextMesh(message, textSize, textColor, position, scene) {
 
     const loader = new FontLoader();
     loader.load( '/assets/fonts/helvetiker_regular.typeface.json', function ( font ) {
@@ -29,8 +29,8 @@ export function createTextMesh(message, textSize, textColor, scene) {
         
         const text = new THREE.Mesh( geometry, matLite );
 
-        text.scale.set(0.1,0.1,0.1)
-        text.position.set(0,10,-11.5)
+        text.scale.set(0.06,0.06,0.06)
+        text.position.set(position.x, position.y, position.z)
         // console.log(text)
         scene.add( text );
 
